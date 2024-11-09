@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Selection</title>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <label for="gameSelect">Chọn trò chơi:</label>
+    <select id="gameSelect">
+        <option value="">--Chọn trò chơi--</option>
+        <option value="lien-quan">Liên Quân</option>
+        <option value="pubg">PUBG</option>
+        <option value="free-fire">Free Fire</option>
+    </select>
+
+    <div id="lienQuanInputs" class="hidden">
+        <label for="numChampions">Số tướng:</label>
+        <input type="number" id="numChampions" name="numChampions" min="0"><br>
+
+        <label for="numSkins">Số trang phục:</label>
+        <input type="number" id="numSkins" name="numSkins" min="0"><br>
+    </div>
+
+    <div id="rankInput" class="hidden">
+        <label for="rank">Rank:</label>
+        <input type="text" id="rank" name="rank"><br>
+    </div>
+
+    <div id="freeFireInputs" class="hidden">
+        <label for="diamonds">Kim cương:</label>
+        <input type="number" id="diamonds" name="diamonds" min="0"><br>
+    </div>
+
+    <script>
+        const gameSelect = document.getElementById('gameSelect');
+        const lienQuanInputs = document.getElementById('lienQuanInputs');
+        const rankInput = document.getElementById('rankInput');
+        const freeFireInputs = document.getElementById('freeFireInputs');
+
+        gameSelect.addEventListener('change', function() {
+            lienQuanInputs.classList.add('hidden');
+            rankInput.classList.add('hidden');
+            freeFireInputs.classList.add('hidden');
+
+            if (gameSelect.value === 'lien-quan') {
+                lienQuanInputs.classList.remove('hidden');
+                rankInput.classList.remove('hidden');
+            } else if (gameSelect.value === 'pubg') {
+                rankInput.classList.remove('hidden');
+            } else if (gameSelect.value === 'free-fire') {
+                rankInput.classList.remove('hidden');
+                freeFireInputs.classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
