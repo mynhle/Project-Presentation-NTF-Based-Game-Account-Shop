@@ -38,7 +38,7 @@
                                             <th>ID</th>
                                             <th>Name</th>
                                             <th>Image</th>
-                                            <th>Number of accounts</th>                                            
+                                            <th>Number of accounts</th>
                                             <th>Status</th>
                                             <th>Action</th>
                                         </tr>
@@ -48,7 +48,7 @@
                                             <th>ID</th>
                                             <th>Name</th>
                                             <th>Image</th>
-                                            <th>Number of accounts</th>                                            
+                                            <th>Number of accounts</th>
                                             <th>Status</th>
                                             <th>Action</th>
                                         </tr>
@@ -59,22 +59,22 @@
                                             <td>{{$item->id}}</td>
                                             <td>{{$item->name}}</td>
                                             <td>
-                                                @if(!empty($item->image)) 
+                                                @if(!empty($item->image))
                                                     <div class="" style="width: 100px; height: 100px;">
                                                         <img src="{{Storage::url($item->image)}}" alt="" style="max-width: 100px; max-height: 100px;" class="rounded-2">
                                                     </div>
                                                 @else
                                                         <p class="text-danger">No Photo!</p>
-                                                @endif    
+                                                @endif
                                             </td>
                                             <td>{{$item->accounts_count}}</td>
                                             <td>
 
                                                 {!! $item->is_active ? '<span class="badge bg-success text-white p-2 fs-6">Active</span>' : '<span class="badge bg-danger text-white p-2 fs-6">Inactive</span>' !!}
-                                                
+
                                             </td>
 
-                                            
+
                                             <td class="d-flex">
                                                 {{-- <a href="{{route('admin.games.show', $item)}}"><button class="btn btn-primary mr-2">View</button></a> --}}
                                                 <a href="{{route('admin.games.edit', $item)}}"><button class="btn btn-warning mr-2">Edit</button></a>

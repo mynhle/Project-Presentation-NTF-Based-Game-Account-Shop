@@ -71,43 +71,55 @@ class GameController extends Controller
     public function edit(Game $game, $slug)
     {
 
-        $game = Game::query()->where('slug', $slug)->first();
+        $game = Game::query()->where('id', $slug)->first();
+        // dd($game);
         return view(Self::PATH_VIEW.__FUNCTION__, compact('game'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateGameRequest $request, Game $game)
+    public function update(UpdateGameRequest $request, $id)
     {
+        // Tìm game theo ID
+        $game = Game::findOrFail($id);
 
-        dd($game);
+        // Lấy dữ liệu từ request
         $data = $request->except('image');
-        dd($data);
-        $data['is_active'] ??= 0;
+        $data['is_active'] ??= 0;  // Nếu không có is_active, mặc định là 0
+
+        // Xử lý ảnh nếu có
         if ($request->hasFile('image')) {
+            // Lưu ảnh mới vào thư mục
             $data['image'] = Storage::put(self::PATH_UPLOAD, $request->file('image'));
+
+            // Xóa ảnh cũ nếu có
             if (!empty($game->image) && Storage::exists($game->image)) {
                 Storage::delete($game->image);
             }
         } else {
+            // Nếu không có ảnh, giữ ảnh cũ
             $data['image'] = $game->image;
         }
 
+        // Tạo slug từ tên game
         $data['slug'] = Str::slug($data['name']);
+        $data['accounts_count'] = 0; // Set lại số tài khoản nếu cần
 
+        // Bắt đầu giao dịch
         try {
             DB::beginTransaction();
-            
-            $game->update($data);
-
-            DB::commit();
+            $game->update($data);  // Cập nhật game với dữ liệu mới
+            DB::commit();  // Commit giao dịch
         } catch (\Exception $exception) {
-            DB::rollback();
+            DB::rollback();  // Rollback nếu có lỗi
             return back()->with('message', 'Lỗi');
         }
-        return redirect()->route(self::PATH_VIEW . 'index')->with('message', 'Update successful!');
+
+        // Thành công, chuyển hướng về danh sách game
+        return redirect()->route(self::PATH_VIEW . 'index')->with('message', 'Cập nhật thành công!');
     }
+
 
     /**
      * Remove the specified resource from storage.

@@ -46,7 +46,7 @@ Route::prefix('admin')->as('admin.')->group(function () {
         Route::get('create', [GameController::class, 'create'])->name('create'); // Thêm tài khoản mới
         Route::post('store', [GameController::class, 'store'])->name('store'); // Lưu tài khoản mới
         Route::get('{slug}/edit', [GameController::class, 'edit'])->name('edit'); // Chỉnh sửa tài khoản
-        Route::patch('{slug}', [GameController::class, 'update'])->name('update'); // Cập nhật tài khoản
+        Route::put('{slug}', [GameController::class, 'update'])->name('update');//cập nhật tài khoản
         Route::delete('{slug}', [GameController::class, 'destroy'])->name('destroy'); // Xóa tài khoản
     });
 
