@@ -63,7 +63,7 @@
                             <h5 class="fs-14 mb-1">Game Image</h5>
                             <p class="text-muted">Add Game Image.</p>
                             @if (!empty($game->image))
-                                <img src="{{ Storage::url($game->image) }}" alt="Game Image" width="200" class="rounded-3 mb-3">
+                                <img src="{{ asset('Storage/' . $game->image) }}" alt="Game Image" width="100px" class="rounded-3 mb-3">
                             @else
                                 <p class="text-danger">No Photo!</p>
                             @endif

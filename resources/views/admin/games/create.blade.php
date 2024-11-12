@@ -51,8 +51,8 @@
                             </div>
                         </div>
                     </div>
-    
-                    
+
+
                 </div>
 
                 <div class="col-xl-7 col-lg-6">
@@ -69,7 +69,7 @@
                                 <div class="mb-4">
                                     <h5 class="fs-14 mb-1">Game Image</h5>
                                     <p class="text-muted">Add Game Image.</p>
-    
+
                                     <input type="file" class="form-control" name="image">
                                 </div>
                             </div>
@@ -82,7 +82,7 @@
                     </div>
                 </div>
         </div>
-        
+
     </form>
 
 

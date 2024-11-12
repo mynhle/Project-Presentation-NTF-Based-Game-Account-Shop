@@ -61,7 +61,7 @@
                                             <td>
                                                 @if(!empty($item->image))
                                                     <div class="" style="width: 100px; height: 100px;">
-                                                        <img src="{{Storage::url($item->image)}}" alt="" style="max-width: 100px; max-height: 100px;" class="rounded-2">
+                                                        <img src="{{asset('Storage/' . $item->image)}}" alt="" style="max-width: 100px; max-height: 100px;" class="rounded-2">
                                                     </div>
                                                 @else
                                                         <p class="text-danger">No Photo!</p>
