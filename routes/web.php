@@ -30,7 +30,6 @@ Route::get('login', [SolanaAuthController::class, 'login']); // Cập nhật h�
 
 
 
-
 Route::prefix('auth')->group(function () {
 
     // Đăng ký người dùng mới
