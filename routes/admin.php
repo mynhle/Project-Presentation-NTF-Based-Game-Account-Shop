@@ -57,6 +57,7 @@ Route::prefix('admin')->as('admin.')->group(function () {
     Route::prefix('accounts')->name('accounts.')->group(function () {
         Route::get('/', [AccountController::class,'index'])->name('index'); // Danh sách tài khoản
         Route::get('create', [AccountController::class, 'create'])->name('create'); // Thêm tài khoản mới
+        Route::get('{account}', [AccountController::class, 'show'])->name('show'); //Chi tiết tài khoản
         Route::post('store', [AccountController::class, 'store'])->name('store'); // Lưu tài khoản mới
         Route::get('{account}/edit', [AccountController::class, 'edit'])->name('edit'); // Chỉnh sửa tài khoản
         Route::put('{account}', [AccountController::class, 'update'])->name('update'); // Cập nhật tài khoản

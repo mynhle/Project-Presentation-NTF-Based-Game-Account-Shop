@@ -70,9 +70,9 @@ Route::prefix('client')->group(function () {
     Route::put('/profile', [UserController::class, 'update']); // Cập nhật hồ sơ cá nhân
 });
 
+// Route::delete('/account-gallery/{id}', [AccountController::class, 'destroyGallery'])->name('account-gallery.destroy');
 
-
-// Route::get('/games/{game}', [GameController::class, 'edit']); 
+// Route::get('/games/{game}', [GameController::class, 'edit']);
 
 
 
