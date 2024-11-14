@@ -17,6 +17,6 @@ class AccountAttribute extends Model
 
     public function accounts()
     {
-        return $this->hasMany(Account::class);
+        return $this->belongsTo(Account::class, 'account_id');
     }
 }

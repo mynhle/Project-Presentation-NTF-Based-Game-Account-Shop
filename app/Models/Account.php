@@ -12,20 +12,26 @@ class Account extends Model
 
     protected $fillable = [
         'game_id',
+        'sku',
         'username',
         'password',
+        'image',
         'price',
         'status',
     ];
 
     public function game()
     {
-        return $this->belongsTo(Game::class);
+        return $this->belongsTo(Game::class, 'game_id');
     }
 
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function accountAttribute(){
+        return $this->hasMany(AccountAttribute::class);
     }
 
     public function accountGalleries()
@@ -38,5 +44,5 @@ class Account extends Model
         return $this->hasMany(TransactionHistory::class);
     }
 
-    
+
 }

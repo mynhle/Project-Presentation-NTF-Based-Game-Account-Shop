@@ -5,258 +5,223 @@
 @endsection
 
 @section('style-libs')
-<link href="{{asset('themes/admin/libs/dropzone/dropzone.css')}}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('themes/admin/libs/dropzone/dropzone.css') }}" rel="stylesheet" type="text/css" />
 @endsection
 
 @section('script-libs')
-<!-- ckeditor -->
-<script src="{{asset('themes/admin/libs/@ckeditor/ckeditor5-build-classic/build/ckeditor.js')}}"></script>
-<!-- dropzone js -->
-<script src="{{asset('themes/admin/libs/dropzone/dropzone-min.js')}}"></script>
+    <!-- ckeditor -->
+    <script src="{{ asset('themes/admin/libs/@ckeditor/ckeditor5-build-classic/build/ckeditor.js') }}"></script>
+    <!-- dropzone js -->
+    <script src="{{ asset('themes/admin/libs/dropzone/dropzone-min.js') }}"></script>
 
-<script src="{{asset('themes/admin/js/create-product.init.js')}}"></script>
-
-{{-- <script>
-    let variantIndex = 1;
-
-    $('#addMoreVariant').click(function() {
-        let newVariant = `<tr class="variant">
-                            <td>
-                                <select class="form-control" name="product_variant[${variantIndex}][size]" >
-                                    @foreach ($sizes as $size_id => $size_name)
-                                        <option value="{{$size_id}}" {{ old('product_variant.${variantIndex}.size') == $size_id ? 'selected' : '' }}>{{$size_name}}</option>
-                                    @endforeach
-                                </select>
-                            </td>
-                            <td>
-                                <select class="form-control" name="product_variant[${variantIndex}][color]" >
-                                    @foreach ($colors as $color_id => $color_name)
-                                        <option value="{{$color_id}}" {{ old('product_variant.${variantIndex}.color') == $color_id ? 'selected' : '' }}>{{$color_name}}</option>
-                                    @endforeach
-                                </select>
-                            </td>
-                            <td>
-                                <input class="form-control" type="file" name="product_variant[${variantIndex}][image]">
-                            </td>
-                            <td>
-                                <input class="form-control" type="text" name="product_variant[${variantIndex}][quantity]" value="{{ old('product_variant.${variantIndex}.quantity') }}">
-                                @error('product_variant.${variantIndex}.quantity')
-                                    <span class="text-danger">{{$message}}</span>
-                                @enderror
-                            </td>
-                            <td>
-                                <input class="form-control" type="text" name="product_variant[${variantIndex}][price]" value="{{ old('product_variant.${variantIndex}.price') }}">
-                                @error('product_variant.${variantIndex}.price')
-                                    <span class="text-danger">{{$message}}</span>
-                                @enderror
-                            </td>
-                            <td><div class="btn btn-danger removeVariant">X</div></td>
-                        </tr>`;
-        $('#variantsContainer').append(newVariant);
-        variantIndex++;
-    });
-
-    $('#variantsContainer').on('click', '.removeVariant', function() {
-        $(this).closest('tr').remove();
-    });
-
-    $(document).ready(function() {
-        $('#variantsContainer .variant:first-child .removeVariant').hide();
-    });
-</script> --}}
+    <script src="{{ asset('themes/admin/js/create-product.init.js') }}"></script>
 
 @endsection
 
 @section('content')
-   {{-- @if(session('message_create_product'))
-        <h4>{{session('message_create_product')}}</h4>
-    @endif --}}
-<a href="{{route('admin.accounts.index')}}"><button class="btn btn-secondary my-3">Back</button></a>
-<form action="{{route('admin.accounts.store')}}" method="POST" enctype="multipart/form-data">
-    @csrf
-    <div class="row">
-        <!-- Left content -->
-        <div class="col-xl-8 col-lg-7">
-            <div class="card shadow mb-4">
-                <a href="#collapseAccountInfo" class="d-block card-header py-3" data-toggle="collapse"
-                   role="button" aria-expanded="true" aria-controls="collapseCardExample">
-                    <h6 class="m-0 font-weight-bold text-primary">Account main information</h6>
-                </a>
-                <div class="collapse show" id="collapseAccountInfo">
-                    <div class="card-body">
-                        <div class="mb-3">
-                            <label for="account-title-input" class="form-label">Product Title</label>
-                            <input type="text" class="form-control" name="name" id="account-title-input" placeholder="Enter account title" value="{{ old('name') }}">
-                            {{-- @error('name')
+@if (session('error'))
+        <div class="alert alert-success" role="alert">
+            {{ session('error') }}
+        </div>
+    @endif
+    @if (session('message_create_product'))
+        <div class="alert alert-success" role="alert">
+            {{ session('message_create_product') }}
+        </div>
+    @endif
+    <a href="{{ route('admin.accounts.index') }}"><button class="btn btn-secondary my-3">Back</button></a>
+    <form action="{{ route('admin.accounts.store') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <div class="row">
+            <!-- Left content -->
+            <div class="col-xl-8 col-lg-7">
+                <div class="card shadow mb-4">
+                    <a href="#collapseAccountInfo" class="d-block card-header py-3" data-toggle="collapse" role="button"
+                        aria-expanded="true" aria-controls="collapseCardExample">
+                        <h6 class="m-0 font-weight-bold text-primary">Account main information</h6>
+                    </a>
+                    <div class="collapse show" id="collapseAccountInfo">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label for="account-title-input" class="form-label">User name</label>
+                                <input type="text" class="form-control" name="username" id="account-title-input"
+                                    placeholder="Enter account user name" value="{{ old('username') }}">
+                                {{-- @error('name')
                                 <span class="text-danger">{{$message}}</span>
                             @enderror --}}
-                        </div>
-                        <div class="d-flex justify-content-between gap-3">
-                            <div class="mb-3 w-100">
-                                <label for="account-title-input" class="form-label">Price</label>
-                                <input type="text" class="form-control" name="price" id="" placeholder="Enter price" value="{{ old('price') }}">
-                                {{-- @error('price')
+                            </div>
+                            <div class="mb-3">
+                                <label for="account-title-input" class="form-label">Password</label>
+                                <input type="text" class="form-control" name="password" id="account-title-input"
+                                    placeholder="Enter account password" value="{{ old('password') }}">
+                                {{-- @error('name')
+                                <span class="text-danger">{{$message}}</span>
+                            @enderror --}}
+                            </div>
+                            <div class="d-flex justify-content-between gap-3">
+                                <div class="mb-3 w-100">
+                                    <label for="account-title-input" class="form-label">Price</label>
+                                    <input type="text" class="form-control" name="price" id=""
+                                        placeholder="Enter price" value="{{ old('price') }}">
+                                    {{-- @error('price')
                                     <span class="text-danger">{{$message}}</span>
                                 @enderror --}}
-                            </div>
-                            <div class="mb-3 w-100">
-                                <label for="account-title-input" class="form-label">Price Sale</label>
-                                <input type="text" class="form-control" id="" name="price_sale" placeholder="Enter price sale" value="{{ old('price_sale') }}">
-                                {{-- @error('price_sale')
-                                    <span class="text-danger">{{$message}}</span>
-                                @enderror --}}
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Account Description</label>
-                            <div id="ckeditor-classic" name="description">
-                                <ul>
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                    <li></li>
-                                </ul>
-                            </div>
-                        </div>
-                        {{-- <div class="mb-3">
-                            <label class="form-label">Product Material</label>
-                            <textarea name="material" id="" cols="30" rows="5" class="form-control">{{ old('material') }}</textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Use Manual</label>
-                            <textarea name="use_manual" id="" cols="30" rows="5" class="form-control">{{ old('use_manual') }}</textarea>
-                        </div> --}}
-                    </div>
-                </div>
-            </div>
-            <div class="card shadow mb-4">
-                <a href="#collapseAccountGallery" class="d-block card-header py-3" data-toggle="collapse"
-                   role="button" aria-expanded="true" aria-controls="collapseCardExample">
-                    <h6 class="m-0 font-weight-bold text-primary">Account Image</h6>
-                </a>
-                <div class="collapse show" id="collapseAccountGallery">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <h5 class="fs-14 mb-1">Account Image</h5>
-                            <p class="text-muted">Add Account main Image.</p>
-                            <input type="file" class="form-control" name="img_thumb">
-                        </div>
-                        <div>
-                            <h5 class="fs-14 mb-1">Account Gallery</h5>
-                            <p class="text-muted">Add Account Gallery Images.</p>
-                            <input type="file" class="form-control" name="product_galleries[]" multiple>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {{-- <div class="card shadow mb-4">
-                <a href="#collapseAccountVariants" class="d-block card-header py-3" data-toggle="collapse"
-                   role="button" aria-expanded="true" aria-controls="collapseCardExample">
-                    <h6 class="m-0 font-weight-bold text-primary">Product Variants</h6>
-                </a>
-                <div class="collapse show" id="collapseAccountVariants">
-                    <div class="card-body">
-                        <div class="mb-4">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Size</th>
-                                        <th>Color</th>
-                                        <th>Image</th>
-                                        <th>Quantity</th>
-                                        <th>Price</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="variantsContainer">
-                                    @foreach(old('product_variant', [['size' => '', 'color' => '', 'image' => '', 'quantity' => '', 'price' => '']]) as $index => $variant)
-                                        <tr class="variant">
-                                            <td>
-                                                <select class="form-control" name="product_variant[{{$index}}][size]">
-                                                    @foreach ($sizes as $size_id => $size_name)
-                                                        <option value="{{$size_id}}" {{ $variant['size'] == $size_id ? 'selected' : '' }}>{{$size_name}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <select class="form-control" name="product_variant[{{$index}}][color]">
-                                                    @foreach ($colors as $color_id => $color_name)
-                                                        <option value="{{$color_id}}" {{ $variant['color'] == $color_id ? 'selected' : '' }}>{{$color_name}}</option>
-                                                    @endforeach
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <input class="form-control" type="file" name="product_variant[{{$index}}][image]">
-                                            </td>
-                                            <td>
-                                                <input class="form-control" type="text" name="product_variant[{{$index}}][quantity]" value="{{ $variant['quantity'] }}">
-                                                @error("product_variant.${index}.quantity")
-                                                    <span class="text-danger">{{$message}}</span>
-                                                @enderror
-                                            </td>
-                                            <td>
-                                                <input class="form-control" type="text" name="product_variant[{{$index}}][price]" value="{{ $variant['price'] }}">
-                                                @error("product_variant.${index}.price")
-                                                    <span class="text-danger">{{$message}}</span>
-                                                @enderror
-                                            </td>
-                                            <td><div class="btn btn-danger removeVariant">X</div></td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                            <div class="btn btn-info" id="addMoreVariant">Add more variant</div>
-                        </div>
-                    </div>
-                </div>
-            </div> --}}
-            <div class="d-flex justify-content-end mb-3">
-                <button type="submit" class="btn btn-success w-sm">Submit</button>
-            </div>
-        </div>
-        <!-- Right content -->
-        <div class="col-xl-4 col-lg-5">
-            <div class="card shadow mb-4">
-                <a href="#collapseStatus" class="d-block card-header py-3" data-toggle="collapse"
-                   role="button" aria-expanded="true" aria-controls="collapseCardExample">
-                    <h6 class="m-0 font-weight-bold text-primary">Product status</h6>
-                </a>
-                <div class="collapse show" id="collapseStatus">
-                    <div class="card-body">
-                        <label for="choices-category-input" class="form-label">Product Category</label>
-                        <select class="form-control" aria-label="Default select example"
-                                id="choices-category-input" name="category_id">
-                            {{-- @foreach($categories as $id => $name)
-                                <option value="{{$id}}" {{ old('category_id') == $id ? 'selected' : '' }}>{{$name}}</option>
-                            @endforeach --}}
-                        </select>
-                        <label for="choices-publish-status-input" class="form-label">Status</label>
-                        <select class="form-control form-select-lg mb-3" id="choices-publish-status-input" aria-label="Default select example" name="is_active">
-                            <option value="1" {{ old('is_active') == '1' ? 'selected' : '' }}>Còn hàng</option>
-                            <option value="0" {{ old('is_active') == '0' ? 'selected' : '' }}>Hết hàng</option>
-                        </select>
-                        @php
-                            $types = [
-                                'is_best_sale' => 'Bán chạy',
-                                'is_40_sale' => 'Giảm 40%',
-                                'is_hot_online' => 'Hot online'
-                            ];
-                        @endphp
-                        <label for="choices-publish-type-input" class="form-label">Product Type</label>
-                        <div class="d-flex justify-content-between align-items-center">
-                            @foreach ($types as $key => $value)
-                                <div class="form-group custom-control custom-checkbox small d-flex align-items-center">
-                                    <input type="checkbox" class="custom-control-input" id="customCheck-{{$key}}" value="{{$key}}" name="{{$key}}" {{ old($key) ? 'checked' : '' }}>
-                                    <label class="custom-control-label" for="customCheck-{{$key}}">{{$value}}</label>
                                 </div>
-                            @endforeach
+                            </div>
+                            {{-- <div class="mb-3">
+                            <label class="form-label">Account attribute</label>
+                            <textarea id="ckeditor-classic" name="description">
+
+                            </textarea>
+                        </div> --}}
                         </div>
-                        <label for="choices-publish-type-input" class="form-label">SKU Product</label>
-                        <input type="text" class="form-control" value="{{ old('sku', strtoupper(\Str::random(8))) }}" name="sku" readonly>
+                    </div>
+                </div>
+                <div class="card shadow mb-4">
+                    <a href="#collapseAccountAttribute" class="d-block card-header py-3" data-toggle="collapse"
+                        role="button" aria-expanded="true" aria-controls="collapseCardExample">
+                        <h6 class="m-0 font-weight-bold text-primary">Account Attribute</h6>
+                    </a>
+                    <div class="collapse show" id="collapseAccountAttribute">
+                        <div class="card-body">
+                            <div class="container mt-3">
+                                <h3>Add Account Attributes</h3>
+                                <div id="attributes-container">
+                                    <div class="attribute-group mb-3">
+                                        <label for="attribute_name" class="form-label">Attribute Name</label>
+                                        <input type="text" class="form-control" name="attribute_name[]" required>
+                                        <label for="attribute_value" class="form-label">Attribute Value</label>
+                                        <input type="text" class="form-control" name="attribute_value[]" required>
+                                        <button type="button" class="btn btn-danger remove-attribute mt-2">Remove</button>
+                                    </div>
+                                </div>
+                                <button type="button" class="btn btn-primary" id="add-attribute">Add Attribute</button>
+                            </div>
+
+                            <script>
+                                document.getElementById('add-attribute').addEventListener('click', function() {
+                                    const container = document.getElementById('attributes-container');
+
+                                    const newAttribute = `
+                                    <div class="attribute-group mb-3">
+                                        <label for="attribute_name" class="form-label">Attribute Name</label>
+                                        <input type="text" class="form-control" name="attribute_name[]" required>
+                                        <label for="attribute_value" class="form-label">Attribute Value</label>
+                                        <input type="text" class="form-control" name="attribute_value[]" required>
+                                        <button type="button" class="btn btn-danger remove-attribute mt-2">Remove</button>
+                                    </div>
+                                `;
+
+                                    container.insertAdjacentHTML('beforeend', newAttribute);
+                                });
+
+                                // Event delegation for removing attributes
+                                document.getElementById('attributes-container').addEventListener('click', function(e) {
+                                    if (e.target.classList.contains('remove-attribute')) {
+                                        e.target.parentElement.remove();
+                                    }
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </div>
+                <div class="card shadow mb-4">
+                    <a href="#collapseAccountGallery" class="d-block card-header py-3" data-toggle="collapse" role="button"
+                        aria-expanded="true" aria-controls="collapseCardExample">
+                        <h6 class="m-0 font-weight-bold text-primary">Account Image</h6>
+                    </a>
+                    <div class="collapse show" id="collapseAccountGallery">
+                        <div class="card-body">
+                            <div class="mb-4">
+                                <h5 class="fs-14 mb-1">Account Image</h5>
+                                <p class="text-muted">Add Account main Image.</p>
+                                <input type="file" class="form-control" name="image">
+                            </div>
+                            <div>
+                                <div class="container mt-3">
+                                    <h3>Add Account Gallery Images</h3>
+                                    <div id="images-container">
+                                        <div class="image-group mb-3">
+                                            <label for="image" class="form-label">Gallery Image</label>
+                                            <input type="file" class="form-control" name="images[]" accept="image/*"
+                                                required>
+                                            <label for="caption" class="form-label">Caption</label>
+                                            <input type="text" class="form-control" name="caption[]" required>
+                                            <button type="button"
+                                                class="btn btn-danger remove-image mt-2">Remove</button>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-primary" id="add-image">Add Image</button>
+                                </div>
+
+                                <script>
+                                    document.getElementById('add-image').addEventListener('click', function() {
+                                        const container = document.getElementById('images-container');
+
+                                        const newImageInput = `
+                                        <div class="image-group mb-3">
+                                            <label for="image" class="form-label">Gallery Image</label>
+                                            <input type="file" class="form-control" name="images[]" accept="image/*"
+                                                required>
+                                            <label for="caption" class="form-label">Caption</label>
+                                            <input type="text" class="form-control" name="caption[]" required>
+                                            <button type="button"
+                                                class="btn btn-danger remove-image mt-2">Remove</button>
+                                        </div>
+                                    `;
+
+                                        container.insertAdjacentHTML('beforeend', newImageInput);
+                                    });
+
+                                    // Event delegation for removing images
+                                    document.getElementById('images-container').addEventListener('click', function(e) {
+                                        if (e.target.classList.contains('remove-image')) {
+                                            e.target.parentElement.remove();
+                                        }
+                                    });
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="d-flex justify-content-end mb-3">
+                    <button type="submit" class="btn btn-success w-sm">Submit</button>
+                </div>
+            </div>
+            <!-- Right content -->
+            <div class="col-xl-4 col-lg-5">
+                <div class="card shadow mb-4">
+                    <a href="#collapseStatus" class="d-block card-header py-3" data-toggle="collapse" role="button"
+                        aria-expanded="true" aria-controls="collapseCardExample">
+                        <h6 class="m-0 font-weight-bold text-primary">Account status</h6>
+                    </a>
+                    <div class="collapse show" id="collapseStatus">
+                        <div class="card-body">
+                            <label for="choices-category-input" class="form-label">Game Category</label>
+                            <select class="form-control" aria-label="Default select example" id="choices-category-input"
+                                name="game_id">
+                                <option value="">--Select game category--</option>
+                                @foreach ($gameCategory as $game)
+                                    <option value="{{ $game->id }}"
+                                        {{ old('game_id') == $game->id ? 'selected' : '' }}>{{ $game->name }}</option>
+                                @endforeach
+                            </select>
+                            <label for="choices-publish-status-input" class="form-label">Status</label>
+                            <select class="form-control form-select-lg mb-3" id="choices-publish-status-input"
+                                aria-label="Default select example" name="status">
+                                <option value="available" {{ old('status') == 'available' ? 'selected' : '' }}>Available
+                                </option>
+                                <option value="sold" {{ old('status') == 'sold' ? 'selected' : '' }}>Sold</option>
+                                <option value="pending" {{ old('status') == 'pending' ? 'selected' : '' }}>Pending
+                                </option>
+                            </select>
+                            <label for="choices-publish-type-input" class="form-label">SKU Product</label>
+                            <input type="text" class="form-control"
+                                value="{{ old('sku', strtoupper(\Str::random(8))) }}" name="sku" readonly>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-</form>
+    </form>
 @endsection
