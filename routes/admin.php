@@ -42,11 +42,11 @@ Route::prefix('admin')->as('admin.')->group(function () {
 
     // Routes cho Games
     Route::prefix('games')->name('games.')->group(function () {
-        Route::get('/', [GameController::class,'index'])->name('index'); // Danh sách tài khoản
+        Route::get('/', [GameController::class, 'index'])->name('index'); // Danh sách tài khoản
         Route::get('create', [GameController::class, 'create'])->name('create'); // Thêm tài khoản mới
         Route::post('store', [GameController::class, 'store'])->name('store'); // Lưu tài khoản mới
         Route::get('{slug}/edit', [GameController::class, 'edit'])->name('edit'); // Chỉnh sửa tài khoản
-        Route::put('{slug}', [GameController::class, 'update'])->name('update');//cập nhật tài khoản
+        Route::put('{slug}', [GameController::class, 'update'])->name('update'); //cập nhật tài khoản
         Route::delete('{slug}', [GameController::class, 'destroy'])->name('destroy'); // Xóa tài khoản
     });
 
@@ -55,7 +55,7 @@ Route::prefix('admin')->as('admin.')->group(function () {
 
     // Routes cho Accounts
     Route::prefix('accounts')->name('accounts.')->group(function () {
-        Route::get('/', [AccountController::class,'index'])->name('index'); // Danh sách tài khoản
+        Route::get('/', [AccountController::class, 'index'])->name('index'); // Danh sách tài khoản
         Route::get('create', [AccountController::class, 'create'])->name('create'); // Thêm tài khoản mới
         Route::post('store', [AccountController::class, 'store'])->name('store'); // Lưu tài khoản mới
         Route::get('{account}/edit', [AccountController::class, 'edit'])->name('edit'); // Chỉnh sửa tài khoản
@@ -64,16 +64,16 @@ Route::prefix('admin')->as('admin.')->group(function () {
     });
 
     // Routes cho Order Management
-    // Route::prefix('orders')->name('orders.')->group(function () {
-    //     Route::get('/', 'OrderController@index')->name('index'); // Danh sách đơn hàng
-    //     Route::get('create', 'OrderController@create')->name('create'); // Thêm đơn hàng mới
-    //     Route::post('store', 'OrderController@store')->name('store'); // Lưu đơn hàng mới
-    //     Route::get('{order}/edit', 'OrderController@edit')->name('edit'); // Chỉnh sửa đơn hàng
-    //     Route::put('{order}', 'OrderController@update')->name('update'); // Cập nhật đơn hàng
-    //     Route::delete('{order}', 'OrderController@destroy')->name('destroy'); // Xóa đơn hàng
-    //     Route::get('{order}', 'OrderController@show')->name('show'); // Xem chi tiết đơn hàng
-    //     Route::put('{order}/status', 'OrderController@updateStatus')->name('updateStatus'); // Cập nhật trạng thái đơn hàng
-    // });
+    Route::prefix('orders')->name('orders.')->group(function () {
+        Route::get('/', [OrderController::class, 'index'])->name('index'); // Danh sách đơn hàng
+        Route::get('create', [OrderController::class, 'create'])->name('create'); // Thêm đơn hàng mới
+        Route::post('store', [OrderController::class, 'store'])->name('store'); // Lưu đơn hàng mới
+        Route::get('{order}/edit', [OrderController::class, 'edit'])->name('edit'); // Chỉnh sửa đơn hàng
+        Route::put('{order}', [OrderController::class, 'update'])->name('update'); // Cập nhật đơn hàng
+        Route::delete('{order}', [OrderController::class, 'destroy'])->name('destroy'); // Xóa đơn hàng
+        Route::get('{order}', [OrderController::class, 'show'])->name('show'); // Xem chi tiết đơn hàng
+        Route::put('{order}/status', [OrderController::class, 'updateStatus'])->name('updateStatus'); // Cập nhật trạng thái đơn hàng
+    });
 
 
     // Routes cho Payment Management
